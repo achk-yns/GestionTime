@@ -33,4 +33,13 @@ route.post('/signup', async (req, res) => {
     }
 });
 
+route.post('/login',async (req,res)=>{
+    const {name,code,isAdmin} = req.body
+    const existingAgent = await Agent.findOne({ code });
+    if (!existingAgent) {
+        return res.status(409).json({ error: "Agent Not found" });
+    }
+    return res.status(201).json({message:'agent Connected',data:existingAgent})
+})
+
 module.exports = route;
