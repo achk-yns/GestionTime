@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import SignUpPage from "./pages/SignUpPage";
+import HomePage from "./pages/agent/HomePage";
 
 function App() {
   const [online, setOnline] = useState(false);
@@ -13,6 +14,8 @@ function App() {
     name: "",
     code: "",
     isAdmin: false,
+    productionTime: 0,
+    pauseTime: 0,
   });
 
   useEffect(() => {
@@ -52,6 +55,8 @@ function App() {
       localStorage.setItem("code", JSON.stringify(formData.code));
       localStorage.setItem("name", JSON.stringify(formData.name));
       localStorage.setItem("online", JSON.stringify(true));
+      localStorage.setItem("productionTime", JSON.stringify(0));
+      localStorage.setItem("pauseTime", JSON.stringify(0));
       console.log("Login successful:", response.data);
       setOnline(true);
     } catch (error) {
@@ -69,6 +74,8 @@ function App() {
       localStorage.setItem("code", JSON.stringify(formData.code));
       localStorage.setItem("name", JSON.stringify(formData.name));
       localStorage.setItem("online", JSON.stringify(true));
+      localStorage.setItem("productionTime", JSON.stringify(0));
+      localStorage.setItem("pauseTime", JSON.stringify(0));
       console.log("Login successful:", response.data);
       setOnline(true);
     } catch (error) {
@@ -109,8 +116,8 @@ function App() {
         </Routes>
       ) : (
         <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<h1>HomePage</h1>} />
+          <Route path="/" element={<Layout formData={formData} handleLogout={handleLogout} />}>
+            <Route index element={<HomePage />} />
           </Route>
         </Routes>
       )}
